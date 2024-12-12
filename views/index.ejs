@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>Index</title>
+  </head>
+  <body>
+    This is the index <% messages.forEach((message) => { %>
+    <div>
+      <ul>
+        <li>Text: <%=message.text%></li>
+
+        <li>User: <%=message.user%></li>
+
+        <li>Date: <%=message.added%></li>
+      </ul>
+    </div>
+
+    <% }) %>
+  </body>
+</html>
