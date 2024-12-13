@@ -3,7 +3,10 @@
     <title>Index</title>
   </head>
   <body>
-    This is the index <% messages.forEach((message) => { %>
+    <%- include('navbar')%>
+    <h1>Messages:</h1>
+
+    <% messages.forEach((message) => { %>
     <div>
       <ul>
         <li>Text: <%=message.text%></li>
@@ -19,6 +22,5 @@
     </div>
 
     <% }) %>
-    <a href="/new">Create new message</a>
   </body>
 </html>

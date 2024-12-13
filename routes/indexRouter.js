@@ -29,9 +29,7 @@ indexRouter.get('/messages/:messageId', (req, res) => {
   const { messageId } = req.params;
 
   const messageIdInt = parseInt(messageId);
-  console.log(messageIdInt);
   const message = messages.find((obj) => obj.id === messageIdInt);
-  console.log(message);
   res.render('messageDetails', { message: message });
 });
 
