@@ -11,9 +11,14 @@
         <li>User: <%=message.user%></li>
 
         <li>Date: <%=message.added%></li>
+
+        <li>
+          <a href="/messages/<%=message.id%>">Open Message</a>
+        </li>
       </ul>
     </div>
 
     <% }) %>
+    <a href="/new">Create new message</a>
   </body>
 </html>
