@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const db = require('../db/queries');
 
 const indexRouter = Router();
 
@@ -6,45 +7,51 @@ let nextId = 2;
 
 const messages = [
   {
-    text: 'Hi there!',
+    text: 'Bye there!',
     user: 'Amando',
     added: new Date(),
     id: 0,
   },
   {
-    text: 'Hello World!',
+    text: 'Goodbye World!',
     user: 'Charles',
     added: new Date(),
     id: 1,
   },
 ];
 
+//get all messages
+//get message from id
+
 //indexRouter.get('/', (req, res) => res.send('This is the index'));
 
-indexRouter.get('/', (req, res) => {
-  res.render('index', { messages: messages });
+indexRouter.get('/', async (req, res) => {
+  const messages1 = await db.getAllMessages();
+  res.render('index', { messages: messages1 });
 });
 
-indexRouter.get('/messages/:messageId', (req, res) => {
+indexRouter.get('/messages/:messageId', async (req, res) => {
   const { messageId } = req.params;
-
-  const messageIdInt = parseInt(messageId);
-  const message = messages.find((obj) => obj.id === messageIdInt);
+  const message = await db.getMessage(messageId);
   res.render('messageDetails', { message: message });
 });
 
 indexRouter.get('/new', (req, res) => {
-  res.render('form', { nextId: nextId });
+  res.render('form');
 });
 
-indexRouter.post('/new', (req, res) => {
-  messages.push({
-    text: req.body.message,
-    user: req.body.name,
-    added: new Date(),
-    id: nextId,
-  });
-  nextId++;
+indexRouter.post('/new', async (req, res) => {
+  // messages.push({
+  //   user: req.body.name,
+  //   text: req.body.message,
+  //   added: new Date(),
+  // });
+  const username = req.body.name;
+  const message = req.body.message;
+  const added = new Date();
+  console.log(req.body);
+  console.log(message);
+  await db.postMessage({ username, message, added });
   res.redirect('/');
 });
 
